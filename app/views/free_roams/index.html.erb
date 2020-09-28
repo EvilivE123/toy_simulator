@@ -41,8 +41,7 @@
 <!-- Buttons end -->
 
 <script>
-  $(document).on('turbolinks:load', function(){
-
+  $(document).ready(function(){
     // below will place an arrow to the origin(0,0) i.e south west, facing North
   	$('.0-0').html('<%= image_tag 'arrow_north', class: 'toy', data: { facing: 'north' } %>');
 
