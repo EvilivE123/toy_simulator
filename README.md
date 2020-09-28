@@ -35,4 +35,3 @@ In Short :-
 
 5] place toy -
   * With the help of x-axis, y-axis and direction, it places toy in the 5x5 dimension block.         
-
