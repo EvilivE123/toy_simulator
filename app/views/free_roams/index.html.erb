@@ -1,0 +1,204 @@
+<!-- Header start -->
+<h1 class='text-primary text-center pb-3'>Toy Simulator<span><%= image_tag 'compass', width: '80rem', height: '50rem' %></span></h1>
+
+<!-- Header end -->
+
+<!-- 5x5 dimension block creation start -->
+<div class="container pb-2">
+  <% [4, 3, 2, 1, 0].each do |y_axis| %>
+    <div class="row">
+      <% [0, 1, 2, 3, 4].each do |x_axis| %>
+        <div class="col inner-cell border text-center h1 text-white mb-0">
+          <div class=<%= "#{x_axis}-#{y_axis}"%> >
+            <%= "#{x_axis}-#{y_axis}" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<!-- 5x5 dimension block creation end -->
+
+<!-- Buttons start -->
+<div class="container">
+  <div class="row justify-content-center py-2">
+    <%= select_tag 'x_axis', options_for_select((0..4)), include_blank: 'Select x-axis', class: 'col form-control'%>
+      
+    <%= select_tag 'y_axis', options_for_select((0..4)), include_blank: 'Select y-axis', class: 'col mx-1 form-control'%>
+       
+    <%= select_tag 'direction', options_for_select(['North', 'West', 'South', 'East']), include_blank: 'Select Direction', class: 'col mr-1 form-control'%>
+  
+    <%= button_tag 'Place Toy', type: 'button', class: 'col-md-2 mt-1 place_toy btn btn-success' %>
+  </div>
+
+  <div class="row justify-content-center">
+    <%= button_tag 'Left', type: 'button', class: 'col left btn btn-info' %>
+    <%= button_tag 'Right', type: 'button', class: 'ml-2 col right btn btn-primary' %>
+    <%= button_tag 'Move', type: 'button', class: ' mx-2 col move btn btn-warning' %>
+    <%= button_tag 'Report', type: 'button', class: 'col report btn btn-danger' %>  
+  </div>
+</div>
+<!-- Buttons end -->
+
+<script>
+  $(document).ready(function(){
+    // below will place an arrow to the origin(0,0) i.e south west, facing North
+  	$('.0-0').html('<%= image_tag 'arrow_north', class: 'toy', data: { facing: 'north' } %>');
+
+    // below will move a toy to the left using a switch case based on the current facing of arrow
+    $('.left').click(function(){
+      var arrow_facing = $('.toy').attr('data-facing')
+      var parent_class = $('.toy').parent().attr('class');
+      switch(arrow_facing){
+        case 'north':
+          $('.' + parent_class).html('<%= image_tag 'arrow_west', class: 'toy', data: { facing: 'west' } %>');
+          break;
+        case 'west':
+          $('.' + parent_class).html('<%= image_tag 'arrow_south', class: 'toy', data: { facing: 'south' } %>');
+          break;
+        case 'south':
+          $('.' + parent_class).html('<%= image_tag 'arrow_east', class: 'toy', data: { facing: 'east' } %>');
+          break;
+        case 'east':
+          $('.' + parent_class).html('<%= image_tag 'arrow_north', class: 'toy', data: { facing: 'north' } %>');
+          break;
+      }
+    });
+
+    // below function place a toy based on x-axis, y-axis and direction
+    // if any of above is not present, then it will give an validation error
+    $('.place_toy').click(function(){
+      var x_axis_value = $.trim($('#x_axis').val());
+      var y_axis_value = $.trim($('#y_axis').val());
+      var direction = $.trim($('#direction').val());
+      if(x_axis_value != "" && y_axis_value != "" && direction != ""){
+        if(x_axis_value < 0 || x_axis_value > 4){
+          displayAlert('Invalid Data!', 'please select a valid x-axis value.', 'error')
+        }else if(y_axis_value < 0 || y_axis_value > 4){
+          displayAlert('Invalid Data!', 'please select a valid y-axis value.', 'error');
+        }else if(direction.indexOf(['North', 'West', 'South', 'East']) != -1){
+          displayAlert('Invalid Data!', 'please select a valid direction.', 'error')
+        } else {
+          var index_class = '.' + x_axis_value + '-' + y_axis_value
+          var direction_in_lowercase = direction.toLowerCase()
+          moveTo(index_class, direction_in_lowercase)
+        }
+      }else{
+        displayAlert('Missing Data!', 'Please select x-axis, y-axis and direction', 'warning');
+      }
+    })
+
+    // it will report the current resting place of a toy, i.e it will reveal x-axis, y-axis and direction facing of a toy
+    $('.report').click(function(){
+      var index_in_string = $('.toy').parent().attr('class').replace('-', '.');
+      var index_in_float = parseFloat(index_in_string).toFixed(1)
+      var get_index_value = index_in_float.split('.')
+      var direction_facing = $('.toy').attr('data-facing').toUpperCase();
+      var message = "x-axis: <b>"+ get_index_value[0] +"</b><br>y-axis: <b>"+ get_index_value[1] +"</b><br>facing: <b>"+ direction_facing +"</b>" 
+      displayAlert('Data Collected!', message, 'info')
+    })
+
+    // below will move the toy to the right using a switch case based on the current facing of arrow
+    $('.right').click(function(){
+      var arrow_facing = $('.toy').attr('data-facing')
+      var parent_class = $('.toy').parent().attr('class');
+      switch(arrow_facing){
+        case 'north':
+          $('.' + parent_class).html('<%= image_tag 'arrow_east', class: 'toy', data: { facing: 'east' } %>');
+          break;
+        case 'west':
+          $('.' + parent_class).html('<%= image_tag 'arrow_north', class: 'toy', data: { facing: 'north' } %>');
+          break;
+        case 'south':
+          $('.' + parent_class).html('<%= image_tag 'arrow_west', class: 'toy', data: { facing: 'west' } %>');
+          break;
+        case 'east':
+          $('.' + parent_class).html('<%= image_tag 'arrow_south', class: 'toy', data: { facing: 'south' } %>');
+          break;
+      }
+    });    
+
+    // below will move a toy forward where it is facing, it will give a validation error if it tries to leave the area.
+    $('.move').click(function(){
+      var arrow_facing = $('.toy').attr('data-facing')
+      var index_in_string = $('.toy').parent().attr('class').replace('-', '.');
+      var index_in_float = parseFloat(index_in_string).toFixed(1)
+      if(index_in_float != 0){
+        var decimal_value_for_x_and_y_axis = index_in_float.toString().split('.', 2)
+      }
+      switch(arrow_facing){
+        case 'north':
+          if(index_in_float == 0){
+            moveTo('.0-1', 'north')
+          }else if(parseInt(decimal_value_for_x_and_y_axis[1]) == 4){
+            displayAlert('Dead End!', 'Cannot move any further.', 'error');
+          }else{
+            var next_step_index_in_float = parseFloat(index_in_float) + parseFloat('0.1')
+            var next_step_index = next_step_index_in_float.toFixed(1).replace('.', '-');
+            moveTo('.' + next_step_index, 'north')
+          }
+          break;
+        case 'west':
+          if(index_in_float == 0 || parseInt(decimal_value_for_x_and_y_axis[0]) == 0){
+            displayAlert('Dead End!', 'Cannot move any further.', 'error');
+          }else{
+            var next_step_index_in_float = parseFloat(index_in_float) - parseFloat('1.0')
+            var next_step_index = next_step_index_in_float.toFixed(1).replace('.', '-');
+            moveTo('.' + next_step_index, 'west')
+          }
+          break;
+        case 'south':
+          if(index_in_float == 0 || parseInt(decimal_value_for_x_and_y_axis[1]) == 0){
+            displayAlert('Dead End!', 'Cannot move any further.', 'error');
+          }else{
+            var next_step_index_in_float = parseFloat(index_in_float) - parseFloat('0.1')
+            var next_step_index = next_step_index_in_float.toFixed(1).replace('.', '-');
+            moveTo('.' + next_step_index, 'south')
+          }
+          break;
+        case 'east':
+          if(index_in_float == 0){
+            moveTo('.1-0', 'east')
+          }
+          else if(parseInt(decimal_value_for_x_and_y_axis[0]) == 4){
+            displayAlert('Dead End!', 'Cannot move any further.', 'error');
+          }else{
+            var next_step_index_in_float = parseFloat(index_in_float) + parseFloat('1.0')
+            var next_step_index = next_step_index_in_float.toFixed(1).replace('.', '-');
+            moveTo('.' + next_step_index, 'east')
+          }
+          break;
+      }
+    })
+  })
+  
+  // below function will move the toy to the given index and make it face to the direction as passed in the parameter
+  function moveTo(index_class, facing){
+    var arrow_facing = facing 
+    $('.toy').parent().html($('.toy').parent().attr('class'))
+    switch(arrow_facing){
+      case 'north':
+        $(index_class).html('<%= image_tag 'arrow_north', class: 'toy', data: { facing: 'north' } %>');
+        break;
+      case 'west':
+        $(index_class).html('<%= image_tag 'arrow_west', class: 'toy', data: { facing: 'west' } %>');
+        break;
+      case 'south':
+        $(index_class).html('<%= image_tag 'arrow_south', class: 'toy', data: { facing: 'south' } %>');
+        break;
+      case 'east':
+        $(index_class).html('<%= image_tag 'arrow_east', class: 'toy', data: { facing: 'east' } %>');
+        break;
+    }
+  }
+
+  // it will display a popup alert
+  function displayAlert(title, message, type){
+    Swal.fire({
+      title: title,
+      html: message,
+      icon: type
+    })
+  }
+
+</script>

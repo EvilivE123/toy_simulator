@@ -1,0 +1,66 @@
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/" for 127.0.0.1 at 2020-09-27 18:37:35 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (4640.3ms)
+Completed 200 OK in 4652ms (Views: 4646.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/" for 127.0.0.1 at 2020-09-27 18:40:35 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (306.1ms)
+Completed 200 OK in 316ms (Views: 310.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/" for 127.0.0.1 at 2020-09-27 18:43:08 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (321.1ms)
+Completed 200 OK in 331ms (Views: 325.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:49:33 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (361.3ms)
+Completed 200 OK in 402ms (Views: 372.7ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:49:33 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:49:33 +0530
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:50:03 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (375.3ms)
+Completed 200 OK in 429ms (Views: 394.9ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:50:03 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:50:03 +0530
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:50:27 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (363.2ms)
+Completed 200 OK in 406ms (Views: 377.6ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:50:28 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:50:28 +0530
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:53:53 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (387.8ms)
+Completed 200 OK in 409ms (Views: 396.2ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:53:54 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:53:54 +0530
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:54:20 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (385.9ms)
+Completed 200 OK in 412ms (Views: 397.0ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:54:20 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:54:20 +0530
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+Started GET "/" for 127.0.0.1 at 2020-09-28 09:59:24 +0530
+Processing by FreeRoamsController#index as HTML
+  Rendering free_roams/index.html.erb within layouts/application
+  Rendered free_roams/index.html.erb within layouts/application (379.2ms)
+Completed 200 OK in 407ms (Views: 389.7ms | ActiveRecord: 0.0ms)
+Started GET "/assets/application-755bdbe45df09449df17bded04d8f54e739c9e97f4e5af0ad9dd7445dbaf3488.css" for 127.0.0.1 at 2020-09-28 09:59:24 +0530
+Started GET "/assets/application-109bacde975c76897dc7e9341fe198bd141a0a97cc6b73feb5760e0d7e3fa4c7.js" for 127.0.0.1 at 2020-09-28 09:59:24 +0530

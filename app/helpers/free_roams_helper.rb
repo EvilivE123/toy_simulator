@@ -1,0 +1,2 @@
+module FreeRoamsHelper
+end
